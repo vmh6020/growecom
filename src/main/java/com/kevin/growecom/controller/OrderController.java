@@ -1,34 +1,33 @@
 package com.kevin.growecom.controller;
 
-import com.kevin.growecom.dto.CreateOrderRequest;
-import com.kevin.growecom.entity.Order;
-import com.kevin.growecom.service.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.micrometer.observation.autoconfigure.ObservationProperties;
+import com.kevin.growecom.dto.ApiResponse;
+import com.kevin.growecom.dto.order.CreateOrderRequest;
+import com.kevin.growecom.dto.order.OrderResponse;
+import com.kevin.growecom.model.Order;
+import com.kevin.growecom.service.blueprint.OrderService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1")
+@RequiredArgsConstructor
 public class OrderController {
-    private OrderService orderService;
-
-    @Autowired
-    public OrderController(OrderService orderService) {
-        this.orderService = orderService;
-    }
+   private final OrderService orderService;
 
     @GetMapping("/orders")
-    public ResponseEntity<List<Order>> getOrders() {
-        return ResponseEntity.ok(orderService.findAll());
+    public ResponseEntity<ApiResponse<List<OrderResponse>>> getOrders() {
+        return ApiResponse.success("Get all orders successfully", orderService.findAll());
+    }
+    public ResponseEntity<ApiResponse<OrderResponse>> findOrderById(@RequestAttribute Long id) {
+        return ApiResponse.success("Get order - " + id + "successfully", orderService.findById(id) );
     }
     @PostMapping("/orders")
-    public ResponseEntity<?> createOrder(@RequestBody CreateOrderRequest request) {
-//        return ResponseEntity.status(HttpStatus.OK).body(orderService.createOrder(request));
-        return ResponseEntity.ok(orderService.createOrder(request));
+    public ResponseEntity<ApiResponse<OrderResponse>> createOrder(@RequestBody CreateOrderRequest request) {
+        return ApiResponse.created("Create order successfully", orderService.createOrder(request));
     }
 }

@@ -1,4 +1,4 @@
-package com.kevin.growecom.entity;
+package com.kevin.growecom.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
 @Getter
 @Setter
@@ -14,7 +16,9 @@ import lombok.Setter;
 @Builder
 @Entity
 @Table(name = "inventory")
-public class Inventory {
+@SQLDelete(sql = "UPDATE inventory SET delete_at = CURRENT_TIMESTAMP WHERE id = ?")
+@SQLRestriction("delete_at IS NULL")
+public class Inventory extends BaseEntity{
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;

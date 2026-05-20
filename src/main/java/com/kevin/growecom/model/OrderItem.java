@@ -1,4 +1,4 @@
-package com.kevin.growecom.entity;
+package com.kevin.growecom.model;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -15,6 +15,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
 @Getter
 @Setter
@@ -23,7 +25,9 @@ import lombok.Setter;
 @Builder
 @Entity
 @Table(name = "order_item")
-public class OrderItem {
+@SQLDelete(sql = "UPDATE order_item SET delete_at = CURRENT_TIMESTAMP WHERE id = ?")
+@SQLRestriction("delete_at IS NULL")
+public class OrderItem extends BaseEntity{
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -39,9 +43,5 @@ public class OrderItem {
   @ManyToOne
   @JoinColumn(name = "order_id")
   private Order order;
-
-  private Instant createdAt;
-
-  private Instant updatedAt;
 
 }

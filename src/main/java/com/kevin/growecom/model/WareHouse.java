@@ -1,4 +1,4 @@
-package com.kevin.growecom.entity;
+package com.kevin.growecom.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -14,7 +14,7 @@ import lombok.Setter;
 @Builder
 @Entity
 @Table(name = "ware_house")
-public class WareHouse {
+public class WareHouse extends BaseEntity{
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
