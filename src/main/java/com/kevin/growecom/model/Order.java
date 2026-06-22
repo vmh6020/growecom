@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.kevin.growecom.util.enum2.OrderStatus;
+import com.kevin.growecom.util.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,8 +21,8 @@ import org.hibernate.annotations.SQLRestriction;
 @Builder
 @Entity
 @Table(name = "\"order\"")
-@SQLDelete(sql = "UPDATE \"order\" SET delete_at = CURRENT_TIMESTAMP WHERE id = ?")
-@SQLRestriction("delete_at IS NULL")
+@SQLDelete(sql = "UPDATE \"order\" SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
+@SQLRestriction("deleted_at IS NULL")
 public class Order extends BaseEntity{
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

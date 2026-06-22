@@ -90,7 +90,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void deleteById(Long id) {
         Category category = categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Cannot find product - " + id));
         categoryRepository.delete(category);
     }

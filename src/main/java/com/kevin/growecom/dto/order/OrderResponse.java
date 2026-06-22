@@ -1,6 +1,6 @@
 package com.kevin.growecom.dto.order;
 
-import com.kevin.growecom.util.enum2.OrderStatus;
+import com.kevin.growecom.util.enums.OrderStatus;
 import lombok.*;
 
 import java.math.BigDecimal;

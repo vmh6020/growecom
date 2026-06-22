@@ -1,11 +1,6 @@
 package com.kevin.growecom.dto.product;
 
-
-import com.kevin.growecom.model.Category;
-import com.kevin.growecom.model.Warehouse;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,13 +14,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CreateProductRequest {
-    @NotBlank(message = "Product name cannot be empty")
+public class UpdateProductRequest {
     private String name;
-    @NotNull(message = "Price cannot be null")
     @Min(value = 0, message = "Price must be greater than or equal to zero")
     private BigDecimal price;
-    @NotNull(message = "Category id cannot be null")
     private Long categoryId;
     private List<ProductStockRequest> stocks;
 
@@ -37,7 +29,6 @@ public class CreateProductRequest {
     public static class ProductStockRequest {
         @NotNull(message = "Warehouse id cannot be null")
         private Long warehouseId;
-        @NotNull(message = "Quantity cannot be null")
         @Min(value = 0, message = "Quantity must be greater than or equal to zero")
         private Integer quantity;
     }

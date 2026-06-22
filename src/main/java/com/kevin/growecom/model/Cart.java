@@ -1,10 +1,8 @@
 package com.kevin.growecom.model;
 
-import com.kevin.growecom.util.enum2.CartStatus;
+import com.kevin.growecom.util.enums.CartStatus;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLRestriction;
 
 import java.util.List;
 
@@ -15,8 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@SQLDelete(sql = "UPDATE cart SET delete_at = CURRENT_TIMESTAMP WHERE id = ?")
-@SQLRestriction("delete_at IS NULL")
 public class Cart extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

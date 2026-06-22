@@ -23,7 +23,7 @@ public class CategoryController {
         return ApiResponse.success("Retrieved all categories successfully", categoryService.findAll());
     }
     @GetMapping("/categories/{id}")
-    public ResponseEntity<ApiResponse<CategoryResponse>> getSingleCategoryById(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<CategoryResponse>> getCategoryById(@PathVariable Long id) {
         return ApiResponse.success("Retrieve category " + id + " successfully", categoryService.findById(id));
     }
     @PostMapping("/admin/categories")
@@ -39,7 +39,7 @@ public class CategoryController {
     }
     @DeleteMapping("/admin/categories/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteCategory(@PathVariable Long id) {
-        categoryService.delete(id);
+        categoryService.deleteById(id);
         return ApiResponse.success("Delete category successfully", null);
     }
 }

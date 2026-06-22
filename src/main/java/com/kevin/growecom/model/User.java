@@ -3,7 +3,8 @@ package com.kevin.growecom.model;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.kevin.growecom.util.enum2.Gender;
+import com.kevin.growecom.util.enums.Gender;
+import com.kevin.growecom.util.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,8 +21,8 @@ import org.hibernate.annotations.SQLRestriction;
 @Builder
 @Entity
 @Table(name = "\"user\"")
-@SQLDelete(sql = "UPDATE user SET delete_at = CURRENT_TIMESTAMP WHERE id = ?")
-@SQLRestriction("delete_at IS NULL")
+@SQLDelete(sql = "UPDATE user SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
+@SQLRestriction("deleted_at IS NULL")
 public class User extends BaseEntity{
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,6 +40,11 @@ public class User extends BaseEntity{
   private String birthDate;
 
   private String address;
+
+  private String password;
+
+  @Enumerated(EnumType.STRING)
+  private Role role;
 
   @JsonProperty
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

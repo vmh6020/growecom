@@ -25,8 +25,8 @@ import org.hibernate.annotations.SQLRestriction;
 @Builder
 @Entity
 @Table(name = "order_item")
-@SQLDelete(sql = "UPDATE order_item SET delete_at = CURRENT_TIMESTAMP WHERE id = ?")
-@SQLRestriction("delete_at IS NULL")
+@SQLDelete(sql = "UPDATE order_item SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
+@SQLRestriction("deleted_at IS NULL")
 public class OrderItem extends BaseEntity{
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

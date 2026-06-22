@@ -1,10 +1,6 @@
 package com.kevin.growecom.model;
 
-import java.math.BigDecimal;
-import java.time.Instant;
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kevin.growecom.util.enums.LocationCode;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,28 +10,32 @@ import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "product")
-@SQLDelete(sql = "UPDATE product SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
+@Table(name = "ware_house")
+@SQLDelete(sql = "UPDATE ware_house SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
 @SQLRestriction("deleted_at IS NULL")
-public class Product extends BaseEntity{
+public class Warehouse extends BaseEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   private String name;
 
-  private BigDecimal price;
+  private String address;
 
-  @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+  @Enumerated(EnumType.STRING)
+  private LocationCode locationCode;
+
+  private Boolean isActive;
+
+  @OneToMany(mappedBy = "warehouse", cascade = CascadeType.ALL)
   private List<Inventory> inventories;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "category_id", nullable = false)
-  private Category category;
 }

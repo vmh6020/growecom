@@ -1,12 +1,20 @@
 package com.kevin.growecom.service.blueprint;
 
-import com.kevin.growecom.dto.PaginationResponse;
 import com.kevin.growecom.dto.product.CreateProductRequest;
 import com.kevin.growecom.dto.product.ProductResponse;
-import org.springframework.data.domain.Pageable;
+import com.kevin.growecom.dto.product.UpdateProductRequest;
+
+import java.util.List;
 
 public interface ProductService {
 
-    ProductResponse createProduct(CreateProductRequest request);
-//    PaginationResponse<ProductResponse> findAll(Pageable pageable);
+    ProductResponse create(CreateProductRequest request);
+
+    List<ProductResponse> findAll();
+
+    ProductResponse findById(Long id);
+
+    ProductResponse update(Long id, UpdateProductRequest request);
+
+    void deleteById(Long id);
 }
