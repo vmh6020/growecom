@@ -1,5 +1,6 @@
 package com.kevin.growecom.auth;
 
+import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.OctetSequenceKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
@@ -45,7 +46,9 @@ public class SecurityConfig {
     @Bean
     public JwtEncoder jwtEncoder(@Value("${app.jwt.secret}") String secret) {
         SecretKeySpec key = new SecretKeySpec(secret.getBytes(), "HmacSHA256");
-        OctetSequenceKey jwk = new OctetSequenceKey.Builder(key).build();
+        OctetSequenceKey jwk = new OctetSequenceKey.Builder(key)
+                .algorithm(JWSAlgorithm.HS256)
+                .build();
         JWKSource<SecurityContext> jwks = new ImmutableJWKSet<>(new JWKSet(jwk));
         return new NimbusJwtEncoder(jwks);
     }

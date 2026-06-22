@@ -25,7 +25,7 @@ public class UserPrinciple implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getName();
+        return user.getEmail();
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
