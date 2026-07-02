@@ -11,16 +11,15 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class CreateOrderRequest {
-    @NotNull(message = "User id cannot be null")
-    private Long userId;
-    @NotEmpty(message = "order items cannot be empty")
-    private List<OrderItemRequest> items;
+
+    @NotEmpty(message = "Cart items cannot be empty")
+    private List<CartItemRequest> items;
 
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
-    public static class OrderItemRequest {
+    public static class CartItemRequest {
         @NotNull(message = "Product id cannot be null")
         private Long productId;
         @NotNull(message = "Product quantity cannot be null")

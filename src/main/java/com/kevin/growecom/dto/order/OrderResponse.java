@@ -8,8 +8,6 @@ import java.time.Instant;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
 public class OrderResponse {
     private Long id;

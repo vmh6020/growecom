@@ -1,6 +1,5 @@
-package com.kevin.growecom.service;
+package com.kevin.growecom.security;
 
-import com.kevin.growecom.auth.UserPrinciple;
 import com.kevin.growecom.model.User;
 import com.kevin.growecom.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,12 +10,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found:  " + email));
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User draft.txt found:  " + email));
         return new UserPrinciple(user);
     }
 }

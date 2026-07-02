@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
 public class PaginationResponse<T> {
     private List<T> result;
@@ -19,7 +17,7 @@ public class PaginationResponse<T> {
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
-    private static class MetaDTO {
+    public static class MetaDTO {
         private int page;
         private int pageSize;
         private int pages;

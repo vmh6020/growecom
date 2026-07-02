@@ -1,4 +1,4 @@
-package com.kevin.growecom.service.blueprint;
+package com.kevin.growecom.service;
 
 import com.kevin.growecom.dto.order.CreateOrderRequest;
 import com.kevin.growecom.dto.order.UpdateOrderRequest; // Import thêm Request sửa
@@ -12,6 +12,6 @@ public interface OrderService {
     OrderResponse findById(Long id);
     List<OrderResponse> findAll();
     void deleteById(Long id);
-    OrderResponse create(CreateOrderRequest request);
+    OrderResponse create();
     OrderResponse update(UpdateOrderRequest request);
 }

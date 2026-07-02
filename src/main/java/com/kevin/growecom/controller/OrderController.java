@@ -1,10 +1,10 @@
 package com.kevin.growecom.controller;
 
 import com.kevin.growecom.dto.ApiResponse;
-import com.kevin.growecom.dto.order.CreateOrderRequest;
+
 import com.kevin.growecom.dto.order.UpdateOrderRequest;
 import com.kevin.growecom.dto.order.OrderResponse;
-import com.kevin.growecom.service.blueprint.OrderService;
+import com.kevin.growecom.service.OrderService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,26 +21,26 @@ public class OrderController {
 
     @GetMapping
     public ResponseEntity<ApiResponse<List<OrderResponse>>> getOrders() {
-        return ApiResponse.success("Get all orders successfully", orderService.findAll());
+        return ApiResponse.ok("Get all orders successfully", orderService.findAll());
     }
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<OrderResponse>> getOrderById(@PathVariable Long id) {
-        return ApiResponse.success("Get order - " + id + " successfully", orderService.findById(id));
+        return ApiResponse.ok("Get order - " + id + " successfully", orderService.findById(id));
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<OrderResponse>> createOrder(@Valid @RequestBody CreateOrderRequest request) {
-        return ApiResponse.created("Create order successfully", orderService.create(request));
+    public ResponseEntity<ApiResponse<OrderResponse>> createOrder() {
+        return ApiResponse.created("Create order successfully", orderService.create());
     }
 
     @PutMapping
     public ResponseEntity<ApiResponse<OrderResponse>> updateOrder(@Valid @RequestBody UpdateOrderRequest request) {
-        return ApiResponse.success("Update order successfully", orderService.update(request));
+        return ApiResponse.ok("Update order successfully", orderService.update(request));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteOrder(@PathVariable Long id) {
         orderService.deleteById(id);
-        return ApiResponse.success("Delete order successfully", null);
+        return ApiResponse.ok("Delete order successfully", null);
     }
 }

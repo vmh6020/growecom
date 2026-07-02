@@ -16,8 +16,7 @@ import java.util.List;
 public class UpdateOrderRequest {
     @NotNull(message = "Order id cannot be null")
     private Long id;
-    @NotNull(message = "User cannot be null")
-    private Long userId;
+
     @NotEmpty(message = "Order items cannot be empty")
     private List<UpdateOrderItemRequest> orderItems;
 

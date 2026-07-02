@@ -3,10 +3,14 @@ package com.kevin.growecom.service.impl;
 import com.kevin.growecom.dto.category.CategoryResponse;
 import com.kevin.growecom.dto.category.CreateCategoryRequest;
 import com.kevin.growecom.dto.category.UpdateCategoryRequest;
+import com.kevin.growecom.exception.BaseException;
 import com.kevin.growecom.model.Category;
 import com.kevin.growecom.repository.CategoryRepository;
-import com.kevin.growecom.service.blueprint.CategoryService;
+import com.kevin.growecom.service.CategoryService;
+import com.kevin.growecom.util.enums.ErrorCode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,15 +21,14 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
 
-
     @Override
+    @CacheEvict(value = "categories", allEntries = true)
     public CategoryResponse create(CreateCategoryRequest request) {
-        if (categoryRepository.existsByName(request.getName())) {
-            // BusinessRuleException (RuntimeException temporary)
-            throw new RuntimeException("Category name" + request.getName() + "already existed");
+        String newName = request.getName();
+        if (categoryRepository.existsByName(newName)) {
+            throw new BaseException(ErrorCode.NAME_ALREADY_EXISTS);
         }
-        Category newCategory = Category.builder().name(request.getName()).description(request.getDescription()).build();
-
+        Category newCategory = Category.builder().name(newName).description(request.getDescription()).build();
         Category savedCategory = categoryRepository.save(newCategory);
         return CategoryResponse.builder()
                 .id(savedCategory.getId())
@@ -35,6 +38,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Cacheable(value = "categories")
     public List<CategoryResponse> findAll() {
         List<Category> categories = categoryRepository.findAll();
         return categories.stream()
@@ -48,15 +52,15 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional
+    @CacheEvict(value = "categories", allEntries = true)
     public CategoryResponse update(Long id, UpdateCategoryRequest request) {
         Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException( "Product - " + id + " not found"));
+                .orElseThrow(() -> new BaseException(ErrorCode.RESOURCE_NOT_FOUND));
 
-        // nguoi dung nhap ten ?
         String newName = request.getName();
         if (newName != null && !newName.trim().isEmpty()) {
             if (categoryRepository.existsByName(newName) && !newName.equals(category.getName())) {
-                throw new RuntimeException("Name already existed");
+                throw new BaseException(ErrorCode.NAME_ALREADY_EXISTS);
             }
             category.setName(newName);
         }
@@ -64,13 +68,6 @@ public class CategoryServiceImpl implements CategoryService {
         if (newDescription != null) {
             category.setDescription(newDescription);
         }
-        // yes -> check trung voi ten cu ? -> yes : set name (bang name cu, van giu nguyen)
-                                        // -> no : -> check ten xuat hien db ? -> yes: throw exception
-                                        //                                      -> no : setName (bang name moi)
-        // nguoi dung nhap description ? -> yes: set description
-                                            // -> no ->
-        // save category (ke ca set hay khong set)
-        //request.getDescription() !=
         Category savedCategory = categoryRepository.save(category);
         return CategoryResponse.builder()
                 .id(savedCategory.getId())
@@ -81,7 +78,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryResponse findById(Long id) {
-        Category category = categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Category " + id + " not found"));
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new BaseException(ErrorCode.RESOURCE_NOT_FOUND));
         return CategoryResponse.builder()
                 .id(category.getId())
                 .name(category.getName())
@@ -90,9 +88,10 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @CacheEvict(value = "categories", allEntries = true)
     public void deleteById(Long id) {
-        Category category = categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Cannot find product - " + id));
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new BaseException(ErrorCode.RESOURCE_NOT_FOUND));
         categoryRepository.delete(category);
     }
-
 }

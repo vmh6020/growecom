@@ -1,0 +1,9 @@
+  1. Giai đoạn 1: Hoàn thiện luồng mua hàng (Core E-commerce). Đặc biệt là
+  Giỏ hàng (Cart) và Đặt hàng (Checkout). Nếu không mua được hàng thì chưa
+  gọi là E-commerce.
+  2. Giai đoạn 2: Tích hợp Redis (Lưu giỏ hàng vào Redis thay vì SQL, Cache
+  danh mục/sản phẩm để tăng tốc độ phản hồi, Blacklist Token bảo mật).
+  3. Giai đoạn 3: Tìm kiếm & Lọc sản phẩm (Dùng Spring Data JPA
+  Specification để lọc theo giá, tên, danh mục).
+  4. Giai đoạn 4: Các tiện ích xịn xò (Tích hợp thanh toán VNPAY/MoMo, tự
+  động gửi Email xác nhận đơn hàng, lưu ảnh lên AWS S3 Cloud).

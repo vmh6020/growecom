@@ -1,4 +1,4 @@
-package com.kevin.growecom.service.blueprint;
+package com.kevin.growecom.service;
 
 import com.kevin.growecom.dto.category.CategoryResponse;
 import com.kevin.growecom.dto.category.CreateCategoryRequest;

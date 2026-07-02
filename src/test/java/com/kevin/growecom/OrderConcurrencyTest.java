@@ -1,7 +1,7 @@
 //package com.kevin.growecom;
 //
 //import com.kevin.growecom.dto.order.CreateOrderRequest;
-//import com.kevin.growecom.service.blueprint.OrderService;
+//import com.kevin.growecom.service.OrderService;
 //import org.junit.jupiter.api.Assertions;
 //import org.junit.jupiter.api.Test;
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@
 //        CreateOrderRequest request = new CreateOrderRequest();
 //        request.setUserId(1L);
 //
-//        CreateOrderRequest.OrderItemRequest item = new CreateOrderRequest.OrderItemRequest();
+//        CreateOrderRequest.CartItemRequest item = new CreateOrderRequest.CartItemRequest();
 //        item.setProductId(1L);
 //        item.setQuantity(1);
 //        request.setItems(List.of(item));

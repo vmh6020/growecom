@@ -1,10 +1,9 @@
-package com.kevin.growecom.auth;
+package com.kevin.growecom.security;
 
 import com.kevin.growecom.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
